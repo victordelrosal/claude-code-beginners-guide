@@ -741,13 +741,17 @@
     }
 
     details.card:not([open]) > summary .card-body {
-      padding-top: var(--space-md);
-      padding-bottom: var(--space-md);
+      padding-top: var(--space-sm);
+      padding-bottom: var(--space-sm);
+    }
+
+    details.card:not([open]) > summary .card-body h2 {
+      font: var(--text-headline);
     }
 
     details.card:not([open]) > summary .row {
-      padding-top: var(--space-sm);
-      padding-bottom: var(--space-sm);
+      padding-top: var(--space-xs);
+      padding-bottom: var(--space-xs);
     }
 
     details.card > summary .card-body {
@@ -796,13 +800,7 @@
       }
     }
 
-    /* Toggle all button */
-    .toggle-all-bar {
-      display: flex;
-      justify-content: center;
-      padding: var(--space-sm) var(--space-lg);
-    }
-
+    /* Toggle all button (in navbar) */
     .toggle-all-btn {
       font: var(--text-subhead);
       font-weight: 500;
@@ -813,6 +811,7 @@
       padding: var(--space-xs) var(--space-sm);
       border-radius: var(--radius-sm);
       transition: background var(--duration-standard) var(--ease-default);
+      white-space: nowrap;
     }
 
     .toggle-all-btn:hover {
@@ -840,7 +839,10 @@
   <nav class="sticky-nav" aria-label="Page navigation">
     <div class="sticky-nav-inner">
       <span class="sticky-nav-title">Claude Code: Beginner's Guide</span>
-      <a href="#start">Get Started</a>
+      <div style="display: flex; align-items: center; gap: var(--space-md);">
+        <button class="toggle-all-btn" id="toggleAll" onclick="toggleAllSections()">Collapse All</button>
+        <a href="#start">Get Started</a>
+      </div>
     </div>
   </nav>
 
@@ -850,10 +852,6 @@
     <p class="hero-subtitle">The complete beginner's guide. From zero to productive in 30 minutes.</p>
     <p class="hero-meta">By <a href="https://victordelrosal.com">Victor del Rosal</a> &middot; Last updated 31 March 2026</p>
   </header>
-
-  <div class="toggle-all-bar">
-    <button class="toggle-all-btn" id="toggleAll" onclick="toggleAllSections()">Collapse All</button>
-  </div>
 
   <main class="container">
 
