@@ -757,23 +757,25 @@
     details.card > summary .card-body {
       position: relative;
       padding-right: 48px;
+      display: flex;
+      align-items: center;
     }
 
     details.card > summary .card-body::after {
       content: "";
       position: absolute;
       right: var(--space-lg);
-      top: 24px;
+      top: 50%;
       width: 12px;
       height: 12px;
       border-right: 2px solid var(--label-tertiary);
       border-bottom: 2px solid var(--label-tertiary);
-      transform: rotate(45deg);
+      transform: translateY(-65%) rotate(45deg);
       transition: transform var(--duration-standard) var(--ease-default);
     }
 
     details.card[open] > summary .card-body::after {
-      transform: rotate(-135deg);
+      transform: translateY(-35%) rotate(-135deg);
     }
 
     details.card > .card-body,
