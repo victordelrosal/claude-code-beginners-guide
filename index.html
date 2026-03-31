@@ -11,6 +11,9 @@
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://victordelrosal.com/claude-code-beginners-guide/">
   <link rel="canonical" href="https://victordelrosal.com/claude-code-beginners-guide/">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
   <style>
     :root {
       --font-system: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
@@ -783,6 +786,33 @@
       }
     }
 
+    /* Toggle all button */
+    .toggle-all-bar {
+      display: flex;
+      justify-content: center;
+      padding: var(--space-sm) var(--space-lg);
+    }
+
+    .toggle-all-btn {
+      font: var(--text-subhead);
+      font-weight: 500;
+      color: var(--color-blue);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-sm);
+      transition: background var(--duration-standard) var(--ease-default);
+    }
+
+    .toggle-all-btn:hover {
+      background: var(--fill-primary);
+    }
+
+    .toggle-all-btn:active {
+      background: var(--fill-secondary);
+    }
+
     /* Print */
     @media print {
       .sticky-nav { display: none; }
@@ -810,6 +840,10 @@
     <p class="hero-subtitle">The complete beginner's guide. From zero to productive in 30 minutes.</p>
     <p class="hero-meta">By <a href="https://victordelrosal.com">Victor del Rosal</a> &middot; Last updated 31 March 2026</p>
   </header>
+
+  <div class="toggle-all-bar">
+    <button class="toggle-all-btn" id="toggleAll" onclick="toggleAllSections()">Collapse All</button>
+  </div>
 
   <main class="container">
 
@@ -870,6 +904,54 @@
             <li>A Claude account (we will walk you through this next)</li>
             <li>About 30 minutes for your first session</li>
           </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- What is the terminal -->
+    <section class="section" id="terminal">
+      <details class="card" open>
+        <summary>
+          <div class="card-body">
+            <h2>What is the terminal (and how do I open it)?</h2>
+          </div>
+        </summary>
+        <div class="card-body" style="padding-top: 0;">
+          <p>The terminal is a text-based window where you type commands instead of clicking buttons. It has been part of every computer since the 1970s. It looks intimidating at first, but you only need to know a handful of things to use Claude Code effectively.</p>
+
+          <p>When you open it, you will see a blinking cursor waiting for you to type. That is it. No menus, no icons. Just you and the computer having a text conversation.</p>
+
+          <h3>How to open it on your computer</h3>
+
+          <div class="callout">
+            <p><strong>Mac:</strong> Press <code>Cmd + Space</code> to open Spotlight, type <strong>Terminal</strong>, and press Enter. You can also find it in Applications > Utilities > Terminal.</p>
+          </div>
+
+          <div class="callout">
+            <p><strong>Windows:</strong> Press <code>Win + X</code> and select <strong>Terminal</strong> or <strong>PowerShell</strong>. Alternatively, search for "PowerShell" in the Start menu.</p>
+          </div>
+
+          <div class="callout">
+            <p><strong>Linux:</strong> Press <code>Ctrl + Alt + T</code> on most distributions. Or find "Terminal" in your applications menu.</p>
+          </div>
+
+          <h3>The only commands you need to know</h3>
+          <p>Before using Claude Code, there are just two terminal commands worth knowing:</p>
+
+          <div class="command-row">
+            <code>cd folder-name</code>
+            <span>Move into a folder (cd = "change directory")</span>
+          </div>
+          <div class="command-row">
+            <code>ls</code>
+            <span>List the files in your current folder (on Windows, use <code>dir</code>)</span>
+          </div>
+
+          <p>That is genuinely all you need. Once you type <code>claude</code>, the AI takes over and you communicate in plain English from that point on.</p>
+
+          <div class="callout-green callout">
+            <p><strong>Do not worry</strong> if the terminal feels unfamiliar. Claude Code is designed to work through natural language. You will not need to memorise commands or learn shell scripting. If you can type a sentence, you can use Claude Code.</p>
+          </div>
         </div>
       </details>
     </section>
@@ -1328,5 +1410,26 @@ We use pytest for testing.
     <p style="margin-top: var(--space-md);">This guide is open source. <a href="https://github.com/victordelrosal/claude-code-beginners-guide">Contribute on GitHub</a>.</p>
   </footer>
 
+  <script>
+    function toggleAllSections() {
+      const details = document.querySelectorAll('details.card');
+      const btn = document.getElementById('toggleAll');
+      const anyOpen = Array.from(details).some(d => d.open);
+
+      details.forEach(d => d.open = !anyOpen);
+      btn.textContent = anyOpen ? 'Expand All' : 'Collapse All';
+    }
+
+    // Keep button label in sync when user manually toggles sections
+    document.addEventListener('toggle', function() {
+      const details = document.querySelectorAll('details.card');
+      const btn = document.getElementById('toggleAll');
+      const allClosed = Array.from(details).every(d => !d.open);
+      const allOpen = Array.from(details).every(d => d.open);
+
+      if (allClosed) btn.textContent = 'Expand All';
+      else if (allOpen) btn.textContent = 'Collapse All';
+    }, true);
+  </script>
 </body>
 </html>
