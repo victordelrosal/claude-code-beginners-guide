@@ -691,12 +691,107 @@
       * { transition-duration: 0.01ms !important; }
     }
 
+    /* Collapsible sections */
+    details.card {
+      cursor: default;
+    }
+
+    details.card > summary {
+      list-style: none;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    details.card > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.card > summary::marker {
+      display: none;
+      content: "";
+    }
+
+    details.card > summary .row {
+      border-bottom: none;
+      position: relative;
+      padding-right: 48px;
+    }
+
+    details.card > summary .row::after {
+      content: "";
+      position: absolute;
+      right: var(--space-lg);
+      top: 50%;
+      transform: translateY(-50%) rotate(0deg);
+      width: 12px;
+      height: 12px;
+      border-right: 2px solid var(--label-tertiary);
+      border-bottom: 2px solid var(--label-tertiary);
+      transform-origin: center;
+      transform: translateY(-65%) rotate(45deg);
+      transition: transform var(--duration-standard) var(--ease-default);
+    }
+
+    details.card[open] > summary .row::after {
+      transform: translateY(-35%) rotate(-135deg);
+    }
+
+    details.card > summary .card-body {
+      position: relative;
+      padding-right: 48px;
+    }
+
+    details.card > summary .card-body::after {
+      content: "";
+      position: absolute;
+      right: var(--space-lg);
+      top: 24px;
+      width: 12px;
+      height: 12px;
+      border-right: 2px solid var(--label-tertiary);
+      border-bottom: 2px solid var(--label-tertiary);
+      transform: rotate(45deg);
+      transition: transform var(--duration-standard) var(--ease-default);
+    }
+
+    details.card[open] > summary .card-body::after {
+      transform: rotate(-135deg);
+    }
+
+    details.card > .card-body,
+    details.card > .collapsible-content {
+      border-top: 0.33px solid var(--separator);
+      animation: slideDown var(--duration-standard) var(--ease-decelerate);
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      @keyframes slideDown {
+        from { opacity: 1; transform: none; }
+        to { opacity: 1; transform: none; }
+      }
+    }
+
     /* Print */
     @media print {
       .sticky-nav { display: none; }
       .hero { padding: var(--space-lg); }
       .code-block { border: 1px solid #ccc; }
       body { background: #fff; }
+      details.card { open: true; }
+      details.card > .card-body,
+      details.card > .collapsible-content { display: block !important; }
     }
   </style>
 </head>
@@ -713,7 +808,7 @@
     <div class="hero-badge">Beginner Friendly</div>
     <h1>Claude Code</h1>
     <p class="hero-subtitle">The complete beginner's guide. From zero to productive in 30 minutes.</p>
-    <p class="hero-meta">By <a href="https://victordelrosal.com">Victor del Rosal</a> &middot; Last updated March 2026</p>
+    <p class="hero-meta">By <a href="https://victordelrosal.com">Victor del Rosal</a> &middot; Last updated 31 March 2026</p>
   </header>
 
   <main class="container">
@@ -721,9 +816,13 @@
     <!-- What is it -->
     <section class="section" id="what">
       <p class="section-label">Overview</p>
-      <div class="card">
-        <div class="card-body">
-          <h2>What is Claude Code?</h2>
+      <details class="card" open>
+        <summary>
+          <div class="card-body">
+            <h2>What is Claude Code?</h2>
+          </div>
+        </summary>
+        <div class="card-body" style="padding-top: 0;">
           <p>Claude Code is an AI assistant that lives in your terminal (command line). Unlike chatbots that give you text snippets to copy and paste, Claude Code works directly with your files, folders, and projects. Think of it as a capable colleague sitting at your computer who can read your code, understand your project, and make changes for you.</p>
 
           <h3>What makes it different from ChatGPT or regular Claude?</h3>
@@ -743,15 +842,19 @@
             <p><strong>The mental shift:</strong> You are not asking for code snippets. You are directing an AI teammate who has access to your project. Tell it what you want done, not how to do it.</p>
           </div>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- Who is this for -->
     <section class="section">
       <p class="section-label">Before You Begin</p>
-      <div class="card">
-        <div class="card-body">
-          <h2>Who is this guide for?</h2>
+      <details class="card" open>
+        <summary>
+          <div class="card-body">
+            <h2>Who is this guide for?</h2>
+          </div>
+        </summary>
+        <div class="card-body" style="padding-top: 0;">
           <p>This guide is for people who:</p>
           <ul>
             <li>Have never used Claude Code before</li>
@@ -768,15 +871,19 @@
             <li>About 30 minutes for your first session</li>
           </ul>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- Pricing -->
     <section class="section" id="pricing">
       <p class="section-label">Plans &amp; Pricing</p>
-      <div class="card">
-        <div class="card-body">
-          <h2>How much does it cost?</h2>
+      <details class="card" open>
+        <summary>
+          <div class="card-body">
+            <h2>How much does it cost?</h2>
+          </div>
+        </summary>
+        <div class="card-body" style="padding-top: 0;">
           <p>Claude Code requires a paid plan. There is no permanent free tier, but there is a free trial.</p>
 
           <div class="pricing-grid">
@@ -810,7 +917,7 @@
             <p><strong>Recommendation:</strong> Start with the 30-day free trial. It gives you full access to everything. If you find it valuable, $20/month for Claude Pro is the natural next step. You can cancel the trial at any time with no charge.</p>
           </div>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- Table of Contents -->
@@ -837,27 +944,34 @@
 
     <!-- Step 1 -->
     <section class="section" id="step1">
-      <div class="card">
-        <div class="row">
-          <div class="step-number">1</div>
-          <div class="row-content">
-            <h4>Create your Claude account</h4>
-            <p>If you do not already have one, go to <a href="https://claude.ai">claude.ai</a> and sign up. During signup, you can start the free trial. You will need a valid email and a payment method (it will not be charged during the 30-day trial period).</p>
+      <details class="card">
+        <summary>
+          <div class="row">
+            <div class="step-number">1</div>
+            <div class="row-content">
+              <h4>Create your Claude account</h4>
+              <p>Sign up and start the free trial.</p>
+            </div>
           </div>
+        </summary>
+        <div class="card-body">
+          <p>If you do not already have one, go to <a href="https://claude.ai">claude.ai</a> and sign up. During signup, you can start the free trial. You will need a valid email and a payment method (it will not be charged during the 30-day trial period).</p>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- Step 2 -->
     <section class="section" id="step2">
-      <div class="card">
-        <div class="row">
-          <div class="step-number">2</div>
-          <div class="row-content">
-            <h4>Install Claude Code</h4>
-            <p>Open your terminal and run the installer for your platform.</p>
+      <details class="card">
+        <summary>
+          <div class="row">
+            <div class="step-number">2</div>
+            <div class="row-content">
+              <h4>Install Claude Code</h4>
+              <p>Open your terminal and run the installer for your platform.</p>
+            </div>
           </div>
-        </div>
+        </summary>
         <div class="card-body">
           <h3>macOS or Linux</h3>
           <div class="code-block"><span class="prompt">$</span> <span class="command">curl -fsSL https://claude.ai/install.sh | bash</span></div>
@@ -876,19 +990,21 @@
             <p><strong>Note:</strong> The installer is lightweight and handles updates automatically. You do not need Node.js, Python, or any other runtime pre-installed.</p>
           </div>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- Step 3 -->
     <section class="section" id="step3">
-      <div class="card">
-        <div class="row">
-          <div class="step-number">3</div>
-          <div class="row-content">
-            <h4>Your first session</h4>
-            <p>Navigate to any project folder and type <code>claude</code>.</p>
+      <details class="card">
+        <summary>
+          <div class="row">
+            <div class="step-number">3</div>
+            <div class="row-content">
+              <h4>Your first session</h4>
+              <p>Navigate to any project folder and type <code>claude</code>.</p>
+            </div>
           </div>
-        </div>
+        </summary>
         <div class="card-body">
           <div class="code-block"><span class="prompt">$</span> <span class="command">cd ~/my-project</span>
 <span class="prompt">$</span> <span class="command">claude</span></div>
@@ -905,19 +1021,21 @@
 
           <p>Claude searches through your codebase and shows you exactly where things happen. No grep commands, no scrolling through files. Just ask.</p>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- Step 4 -->
     <section class="section" id="step4">
-      <div class="card">
-        <div class="row">
-          <div class="step-number">4</div>
-          <div class="row-content">
-            <h4>The permission system</h4>
-            <p>Claude Code always asks before changing anything. You stay in control.</p>
+      <details class="card">
+        <summary>
+          <div class="row">
+            <div class="step-number">4</div>
+            <div class="row-content">
+              <h4>The permission system</h4>
+              <p>Claude Code always asks before changing anything. You stay in control.</p>
+            </div>
           </div>
-        </div>
+        </summary>
         <div class="card-body">
           <p>When Claude wants to edit a file, create a file, or run a command, it will show you exactly what it plans to do and ask for permission. This is one of its best safety features.</p>
 
@@ -939,19 +1057,21 @@
             <p><strong>Golden rule:</strong> Read the diffs before pressing yes. Especially in your first few sessions, take a moment to understand what Claude is proposing. This is how you learn its strengths and build trust.</p>
           </div>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- Step 5 -->
     <section class="section" id="step5">
-      <div class="card">
-        <div class="row">
-          <div class="step-number">5</div>
-          <div class="row-content">
-            <h4>Your first real task</h4>
-            <p>Let us do something practical. Here are three beginner-friendly tasks you can try right now.</p>
+      <details class="card">
+        <summary>
+          <div class="row">
+            <div class="step-number">5</div>
+            <div class="row-content">
+              <h4>Your first real task</h4>
+              <p>Four beginner-friendly tasks you can try right now.</p>
+            </div>
           </div>
-        </div>
+        </summary>
         <div class="card-body">
           <h3>Task A: Understand unfamiliar code</h3>
           <div class="code-block"><span class="prompt">claude></span> <span class="command">Explain what the function processPayment in src/billing.js does, step by step, in plain language.</span></div>
@@ -969,19 +1089,21 @@
           <div class="code-block"><span class="prompt">claude></span> <span class="command">Read the CSV file in data/students.csv and create a summary showing the average grade per course.</span></div>
           <p>Claude can read data files, write analysis scripts, and generate results.</p>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- Step 6 -->
     <section class="section" id="step6">
-      <div class="card">
-        <div class="row">
-          <div class="step-number">6</div>
-          <div class="row-content">
-            <h4>Essential commands</h4>
-            <p>You do not need to memorize these. But they are useful to know.</p>
+      <details class="card">
+        <summary>
+          <div class="row">
+            <div class="step-number">6</div>
+            <div class="row-content">
+              <h4>Essential commands</h4>
+              <p>You do not need to memorize these. But they are useful to know.</p>
+            </div>
           </div>
-        </div>
+        </summary>
         <div class="card-body">
           <h3>Starting Claude Code</h3>
           <div class="command-row">
@@ -1029,19 +1151,21 @@
             <p><strong>Pro tip:</strong> You do not need slash commands for most things. Just type what you want in natural language. "Commit my changes" or "Show me what changed" work perfectly well.</p>
           </div>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- Step 7 -->
     <section class="section" id="step7">
-      <div class="card">
-        <div class="row">
-          <div class="step-number">7</div>
-          <div class="row-content">
-            <h4>Where Claude Code runs</h4>
-            <p>Claude Code is available in multiple environments. Choose what suits your workflow.</p>
+      <details class="card">
+        <summary>
+          <div class="row">
+            <div class="step-number">7</div>
+            <div class="row-content">
+              <h4>Where Claude Code runs</h4>
+              <p>Terminal, VS Code, JetBrains, Desktop, and Web.</p>
+            </div>
           </div>
-        </div>
+        </summary>
         <div class="card-body">
           <div class="command-row">
             <strong>Terminal (CLI)</strong>
@@ -1066,19 +1190,21 @@
 
           <p>All environments share the same capabilities. Pick the one you are most comfortable with.</p>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- Step 8 -->
     <section class="section" id="step8">
-      <div class="card">
-        <div class="row">
-          <div class="step-number">8</div>
-          <div class="row-content">
-            <h4>CLAUDE.md: teaching Claude about your project</h4>
-            <p>This is your project's instruction manual for Claude. Optional but powerful.</p>
+      <details class="card">
+        <summary>
+          <div class="row">
+            <div class="step-number">8</div>
+            <div class="row-content">
+              <h4>CLAUDE.md: teaching Claude about your project</h4>
+              <p>Your project's instruction manual for Claude. Optional but powerful.</p>
+            </div>
           </div>
-        </div>
+        </summary>
         <div class="card-body">
           <p>Create a file called <code>CLAUDE.md</code> in the root of your project. Claude reads it at the start of every session. It is where you tell Claude things like your coding style, project conventions, or things to avoid.</p>
 
@@ -1104,19 +1230,21 @@ We use pytest for testing.
             <p><strong>You can also place a CLAUDE.md in your home directory</strong> (~/.claude/CLAUDE.md) for preferences that apply to all your projects, such as your preferred language, formatting style, or general rules.</p>
           </div>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- Step 9 -->
     <section class="section" id="step9">
-      <div class="card">
-        <div class="row">
-          <div class="step-number">9</div>
-          <div class="row-content">
-            <h4>Tips from the trenches</h4>
-            <p>Practical advice from daily Claude Code use.</p>
+      <details class="card">
+        <summary>
+          <div class="row">
+            <div class="step-number">9</div>
+            <div class="row-content">
+              <h4>Tips from the trenches</h4>
+              <p>Practical advice from daily Claude Code use.</p>
+            </div>
           </div>
-        </div>
+        </summary>
         <div class="card-body">
           <h3>Be specific about what you want</h3>
           <p>Instead of "fix the login", try "the login form on /login should show an error message when the email field is empty, instead of silently submitting". The more precise your request, the better the result.</p>
@@ -1136,19 +1264,21 @@ We use pytest for testing.
           <h3>Let Claude run commands</h3>
           <p>Claude can run shell commands (with your permission). Let it run tests, install packages, check git status, or build your project. This is where the real power is: it can see errors, fix them, and verify the fix all in one flow.</p>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- Step 10 -->
     <section class="section" id="step10">
-      <div class="card">
-        <div class="row">
-          <div class="step-number">10</div>
-          <div class="row-content">
-            <h4>What to try next</h4>
-            <p>Once you are comfortable with the basics, explore these areas.</p>
+      <details class="card">
+        <summary>
+          <div class="row">
+            <div class="step-number">10</div>
+            <div class="row-content">
+              <h4>What to try next</h4>
+              <p>Once you are comfortable with the basics, explore these areas.</p>
+            </div>
           </div>
-        </div>
+        </summary>
         <div class="card-body">
           <ul>
             <li><strong>Git workflows:</strong> Ask Claude to review your changes, write commit messages, or create pull requests</li>
@@ -1167,7 +1297,7 @@ We use pytest for testing.
             <li><a href="https://github.com/anthropics/claude-code">Claude Code on GitHub</a></li>
           </ul>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- Checklist -->
