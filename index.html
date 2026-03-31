@@ -804,16 +804,21 @@
 
     /* Toggle all button (in navbar) */
     .toggle-all-btn {
-      font: var(--text-subhead);
-      font-weight: 500;
+      font-family: var(--font-system);
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 1;
       color: var(--color-blue);
       background: none;
       border: none;
       cursor: pointer;
-      padding: var(--space-xs) var(--space-sm);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-radius: var(--radius-sm);
       transition: background var(--duration-standard) var(--ease-default);
-      white-space: nowrap;
     }
 
     .toggle-all-btn:hover {
@@ -842,7 +847,7 @@
     <div class="sticky-nav-inner">
       <span class="sticky-nav-title">Claude Code: Beginner's Guide</span>
       <div style="display: flex; align-items: center; gap: var(--space-md);">
-        <button class="toggle-all-btn" id="toggleAll" onclick="toggleAllSections()">Collapse All</button>
+        <button class="toggle-all-btn" id="toggleAll" onclick="toggleAllSections()" title="Collapse All">&minus;</button>
         <a href="#start">Get Started</a>
       </div>
     </div>
@@ -1427,7 +1432,8 @@ We use pytest for testing.
       const anyOpen = Array.from(details).some(d => d.open);
 
       details.forEach(d => d.open = !anyOpen);
-      btn.textContent = anyOpen ? 'Expand All' : 'Collapse All';
+      btn.innerHTML = anyOpen ? '+' : '\u2212';
+      btn.title = anyOpen ? 'Expand All' : 'Collapse All';
     }
 
     // Keep button label in sync when user manually toggles sections
@@ -1437,8 +1443,8 @@ We use pytest for testing.
       const allClosed = Array.from(details).every(d => !d.open);
       const allOpen = Array.from(details).every(d => d.open);
 
-      if (allClosed) btn.textContent = 'Expand All';
-      else if (allOpen) btn.textContent = 'Collapse All';
+      if (allClosed) { btn.innerHTML = '+'; btn.title = 'Expand All'; }
+      else if (allOpen) { btn.innerHTML = '\u2212'; btn.title = 'Collapse All'; }
     }, true);
   </script>
 </body>
