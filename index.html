@@ -740,6 +740,16 @@
       transform: translateY(-35%) rotate(-135deg);
     }
 
+    details.card:not([open]) > summary .card-body {
+      padding-top: var(--space-md);
+      padding-bottom: var(--space-md);
+    }
+
+    details.card:not([open]) > summary .row {
+      padding-top: var(--space-sm);
+      padding-bottom: var(--space-sm);
+    }
+
     details.card > summary .card-body {
       position: relative;
       padding-right: 48px;
