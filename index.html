@@ -721,23 +721,29 @@
       padding-right: 48px;
     }
 
-    details.card > summary .row::after {
-      content: "";
+    details.card > summary .chevron {
       position: absolute;
       right: var(--space-lg);
-      top: 50%;
-      transform: translateY(-50%) rotate(0deg);
+      top: 0;
+      bottom: 0;
       width: 12px;
-      height: 12px;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    details.card > summary .chevron::after {
+      content: "";
+      width: 10px;
+      height: 10px;
       border-right: 2px solid var(--label-tertiary);
       border-bottom: 2px solid var(--label-tertiary);
-      transform-origin: center;
-      transform: translateY(-65%) rotate(45deg);
+      transform: rotate(45deg);
       transition: transform var(--duration-standard) var(--ease-default);
     }
 
-    details.card[open] > summary .row::after {
-      transform: translateY(-35%) rotate(-135deg);
+    details.card[open] > summary .chevron::after {
+      transform: rotate(-135deg);
     }
 
     details.card:not([open]) > summary .card-body {
@@ -757,25 +763,6 @@
     details.card > summary .card-body {
       position: relative;
       padding-right: 48px;
-      display: flex;
-      align-items: center;
-    }
-
-    details.card > summary .card-body::after {
-      content: "";
-      position: absolute;
-      right: var(--space-lg);
-      top: 50%;
-      width: 12px;
-      height: 12px;
-      border-right: 2px solid var(--label-tertiary);
-      border-bottom: 2px solid var(--label-tertiary);
-      transform: translateY(-65%) rotate(45deg);
-      transition: transform var(--duration-standard) var(--ease-default);
-    }
-
-    details.card[open] > summary .card-body::after {
-      transform: translateY(-35%) rotate(-135deg);
     }
 
     details.card > .card-body,
@@ -803,30 +790,46 @@
     }
 
     /* Toggle all button (in navbar) */
-    .toggle-all-btn {
-      font-family: var(--font-system);
-      font-size: 20px;
-      font-weight: 300;
-      line-height: 1;
-      color: var(--color-blue);
-      background: none;
-      border: none;
-      cursor: pointer;
-      width: 32px;
-      height: 32px;
+    .toggle-all-wrap {
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: var(--space-sm);
+      cursor: pointer;
+      padding: var(--space-xs);
       border-radius: var(--radius-sm);
       transition: background var(--duration-standard) var(--ease-default);
+      border: none;
+      background: none;
     }
 
-    .toggle-all-btn:hover {
+    .toggle-all-wrap:hover {
       background: var(--fill-primary);
     }
 
-    .toggle-all-btn:active {
+    .toggle-all-wrap:active {
       background: var(--fill-secondary);
+    }
+
+    .toggle-all-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 9999px;
+      border: 1.5px solid var(--color-blue);
+      color: var(--color-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-system);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .toggle-all-label {
+      font: var(--text-caption1);
+      color: var(--label-secondary);
+      white-space: nowrap;
     }
 
     /* Print */
@@ -847,7 +850,10 @@
     <div class="sticky-nav-inner">
       <span class="sticky-nav-title">Claude Code: Beginner's Guide</span>
       <div style="display: flex; align-items: center; gap: var(--space-md);">
-        <button class="toggle-all-btn" id="toggleAll" onclick="toggleAllSections()" title="Collapse All">&minus;</button>
+        <button class="toggle-all-wrap" id="toggleAll" onclick="toggleAllSections()">
+          <span class="toggle-all-icon" id="toggleIcon">&minus;</span>
+          <span class="toggle-all-label" id="toggleLabel">Collapse All</span>
+        </button>
         <a href="#start">Get Started</a>
       </div>
     </div>
@@ -1426,25 +1432,34 @@ We use pytest for testing.
   </footer>
 
   <script>
-    function toggleAllSections() {
-      const details = document.querySelectorAll('details.card');
-      const btn = document.getElementById('toggleAll');
-      const anyOpen = Array.from(details).some(d => d.open);
+    // Inject chevron spans into all summaries
+    document.querySelectorAll('details.card > summary').forEach(s => {
+      const target = s.querySelector('.row') || s.querySelector('.card-body');
+      if (target && !target.querySelector('.chevron')) {
+        const chevron = document.createElement('span');
+        chevron.className = 'chevron';
+        target.appendChild(chevron);
+      }
+    });
 
-      details.forEach(d => d.open = !anyOpen);
-      btn.innerHTML = anyOpen ? '+' : '\u2212';
-      btn.title = anyOpen ? 'Expand All' : 'Collapse All';
+    function updateToggleUI(collapsed) {
+      document.getElementById('toggleIcon').innerHTML = collapsed ? '+' : '\u2212';
+      document.getElementById('toggleLabel').textContent = collapsed ? 'Expand All' : 'Collapse All';
     }
 
-    // Keep button label in sync when user manually toggles sections
+    function toggleAllSections() {
+      const details = document.querySelectorAll('details.card');
+      const anyOpen = Array.from(details).some(d => d.open);
+      details.forEach(d => d.open = !anyOpen);
+      updateToggleUI(anyOpen);
+    }
+
     document.addEventListener('toggle', function() {
       const details = document.querySelectorAll('details.card');
-      const btn = document.getElementById('toggleAll');
       const allClosed = Array.from(details).every(d => !d.open);
       const allOpen = Array.from(details).every(d => d.open);
-
-      if (allClosed) { btn.innerHTML = '+'; btn.title = 'Expand All'; }
-      else if (allOpen) { btn.innerHTML = '\u2212'; btn.title = 'Collapse All'; }
+      if (allClosed) updateToggleUI(true);
+      else if (allOpen) updateToggleUI(false);
     }, true);
   </script>
 </body>
