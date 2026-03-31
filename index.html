@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Code: The Complete Beginner's Guide</title>
+  <meta name="description" content="A practical, step-by-step guide to getting started with Claude Code. From zero to productive in 30 minutes.">
+  <meta name="author" content="Victor del Rosal">
+  <meta property="og:title" content="Claude Code: The Complete Beginner's Guide">
+  <meta property="og:description" content="From zero to productive in 30 minutes. A practical guide for professionals who want to start using AI-assisted coding.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://victordelrosal.com/claude-code-beginners-guide/">
+  <link rel="canonical" href="https://victordelrosal.com/claude-code-beginners-guide/">
+  <style>
+    :root {
+      --font-system: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      --font-mono: "SF Mono", SFMono-Regular, ui-monospace, monospace;
+
+      --text-large-title: 700 34px/1.2 var(--font-system);
+      --text-title1: 700 28px/1.2 var(--font-system);
+      --text-title2: 700 22px/1.25 var(--font-system);
+      --text-title3: 400 20px/1.25 var(--font-system);
+      --text-headline: 600 17px/1.3 var(--font-system);
+      --text-body: 400 17px/1.47 var(--font-system);
+      --text-callout: 400 16px/1.4 var(--font-system);
+      --text-subhead: 400 15px/1.4 var(--font-system);
+      --text-footnote: 400 13px/1.4 var(--font-system);
+      --text-caption1: 400 12px/1.33 var(--font-system);
+
+      --color-blue: #007AFF;
+      --color-green: #34C759;
+      --color-orange: #FF9500;
+      --color-red: #FF3B30;
+      --color-purple: #AF52DE;
+
+      --label-primary: #000000;
+      --label-secondary: rgba(60,60,67,0.6);
+      --label-tertiary: rgba(60,60,67,0.3);
+
+      --bg-primary: #FFFFFF;
+      --bg-secondary: #F2F2F7;
+      --bg-tertiary: #FFFFFF;
+
+      --separator: rgba(60,60,67,0.29);
+      --separator-opaque: #C6C6C8;
+
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 20px;
+      --space-xl: 32px;
+      --space-2xl: 44px;
+      --space-3xl: 64px;
+
+      --radius-sm: 8px;
+      --radius-md: 10px;
+      --radius-lg: 12px;
+      --radius-xl: 14px;
+      --radius-2xl: 20px;
+
+      --shadow-subtle: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.12);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+
+      --ease-default: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1.0);
+      --ease-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1.0);
+      --duration-standard: 300ms;
+
+      --content-max-width: 672px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-primary: #000000;
+        --bg-secondary: #1C1C1E;
+        --bg-tertiary: #2C2C2E;
+        --label-primary: #FFFFFF;
+        --label-secondary: rgba(235,235,245,0.6);
+        --label-tertiary: rgba(235,235,245,0.3);
+        --separator: rgba(84,84,88,0.6);
+        --separator-opaque: #38383A;
+        --color-blue: #0A84FF;
+        --color-green: #30D158;
+        --color-orange: #FF9F0A;
+        --color-red: #FF453A;
+        --color-purple: #BF5AF2;
+        --shadow-subtle: 0 1px 3px rgba(0,0,0,0.3);
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.4);
+        --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+      }
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font: var(--text-body);
+      color: var(--label-primary);
+      background: var(--bg-secondary);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Hero */
+    .hero {
+      background: var(--bg-primary);
+      padding: var(--space-3xl) var(--space-lg) var(--space-2xl);
+      text-align: center;
+      border-bottom: 0.33px solid var(--separator);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font: var(--text-caption1);
+      font-weight: 600;
+      color: var(--color-blue);
+      background: rgba(0, 122, 255, 0.1);
+      padding: var(--space-xs) var(--space-md);
+      border-radius: 9999px;
+      margin-bottom: var(--space-md);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .hero-badge {
+        background: rgba(10, 132, 255, 0.15);
+      }
+    }
+
+    .hero h1 {
+      font: var(--text-large-title);
+      font-size: clamp(28px, 5vw, 40px);
+      margin-bottom: var(--space-sm);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font: var(--text-title3);
+      color: var(--label-secondary);
+      max-width: 520px;
+      margin: 0 auto var(--space-lg);
+    }
+
+    .hero-meta {
+      font: var(--text-footnote);
+      color: var(--label-tertiary);
+    }
+
+    .hero-meta a {
+      color: var(--color-blue);
+      text-decoration: none;
+    }
+
+    /* Layout */
+    .container {
+      max-width: calc(var(--content-max-width) + var(--space-lg) * 2);
+      margin: 0 auto;
+      padding: var(--space-xl) var(--space-lg);
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: var(--space-xl);
+    }
+
+    .section-label {
+      font: var(--text-footnote);
+      font-weight: 600;
+      color: var(--label-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0 var(--space-lg);
+      margin-bottom: var(--space-sm);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-primary);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+
+    .card + .card {
+      margin-top: var(--space-md);
+    }
+
+    .card-body {
+      padding: var(--space-lg);
+    }
+
+    .card-body h2 {
+      font: var(--text-title2);
+      margin-bottom: var(--space-md);
+    }
+
+    .card-body h3 {
+      font: var(--text-headline);
+      margin-bottom: var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+
+    .card-body h3:first-child {
+      margin-top: 0;
+    }
+
+    .card-body p {
+      color: var(--label-secondary);
+      margin-bottom: var(--space-md);
+    }
+
+    .card-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .card-body strong {
+      color: var(--label-primary);
+      font-weight: 600;
+    }
+
+    .card-body a {
+      color: var(--color-blue);
+      text-decoration: none;
+    }
+
+    .card-body a:hover {
+      text-decoration: underline;
+    }
+
+    /* Row items (list-like) */
+    .row {
+      display: flex;
+      align-items: flex-start;
+      padding: var(--space-md) var(--space-lg);
+      gap: var(--space-md);
+      border-bottom: 0.33px solid var(--separator);
+    }
+
+    .row:last-child {
+      border-bottom: none;
+    }
+
+    .row-icon {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 600;
+      color: #FFFFFF;
+    }
+
+    .row-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .row-content h4 {
+      font: var(--text-headline);
+      margin-bottom: var(--space-xs);
+    }
+
+    .row-content p {
+      font: var(--text-subhead);
+      color: var(--label-secondary);
+      margin: 0;
+    }
+
+    /* Step numbering */
+    .step-number {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 9999px;
+      background: var(--color-blue);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font: var(--text-subhead);
+      font-weight: 700;
+    }
+
+    /* Code blocks */
+    .code-block {
+      background: #1C1C1E;
+      color: #F2F2F7;
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      font: var(--text-subhead);
+      font-family: var(--font-mono);
+      overflow-x: auto;
+      margin: var(--space-md) 0;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .code-block {
+        background: #0D0D0D;
+      }
+    }
+
+    .code-block .comment {
+      color: #6C7986;
+    }
+
+    .code-block .prompt {
+      color: #30D158;
+    }
+
+    .code-block .command {
+      color: #64D2FF;
+    }
+
+    .code-block .output {
+      color: rgba(242, 242, 247, 0.6);
+    }
+
+    /* Inline code */
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      background: var(--bg-secondary);
+      padding: 2px 6px;
+      border-radius: var(--space-xs);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      code {
+        background: var(--bg-tertiary);
+      }
+    }
+
+    /* Pricing table */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+      margin: var(--space-md) 0;
+    }
+
+    @media (min-width: 480px) {
+      .pricing-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .pricing-option {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      position: relative;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .pricing-option {
+        background: var(--bg-tertiary);
+      }
+    }
+
+    .pricing-option.recommended {
+      outline: 2px solid var(--color-blue);
+    }
+
+    .pricing-option .rec-badge {
+      position: absolute;
+      top: calc(-1 * var(--space-sm));
+      right: var(--space-md);
+      font: var(--text-caption1);
+      font-weight: 600;
+      color: #FFFFFF;
+      background: var(--color-blue);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: 9999px;
+    }
+
+    .pricing-option h4 {
+      font: var(--text-headline);
+      margin-bottom: var(--space-xs);
+    }
+
+    .pricing-option .price {
+      font: var(--text-title1);
+      color: var(--label-primary);
+      margin-bottom: var(--space-sm);
+    }
+
+    .pricing-option .price span {
+      font: var(--text-subhead);
+      color: var(--label-secondary);
+    }
+
+    .pricing-option p {
+      font: var(--text-footnote);
+      color: var(--label-secondary);
+      margin: 0;
+    }
+
+    /* Callout */
+    .callout {
+      background: rgba(0, 122, 255, 0.08);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      margin: var(--space-md) 0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .callout {
+        background: rgba(10, 132, 255, 0.12);
+      }
+    }
+
+    .callout-green {
+      background: rgba(52, 199, 89, 0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .callout-green {
+        background: rgba(48, 209, 88, 0.12);
+      }
+    }
+
+    .callout-orange {
+      background: rgba(255, 149, 0, 0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .callout-orange {
+        background: rgba(255, 159, 10, 0.12);
+      }
+    }
+
+    .callout p {
+      color: var(--label-primary);
+    }
+
+    .callout p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Comparison grid */
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin: var(--space-md) 0;
+    }
+
+    .comparison-col h4 {
+      font: var(--text-headline);
+      margin-bottom: var(--space-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+
+    .comparison-col p {
+      font: var(--text-subhead);
+      color: var(--label-secondary);
+      margin-bottom: var(--space-sm);
+    }
+
+    @media (max-width: 480px) {
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Commands reference */
+    .command-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: var(--space-sm) 0;
+      border-bottom: 0.33px solid var(--separator);
+      gap: var(--space-md);
+    }
+
+    .command-row:last-child {
+      border-bottom: none;
+    }
+
+    .command-row code {
+      flex-shrink: 0;
+    }
+
+    .command-row span {
+      font: var(--text-subhead);
+      color: var(--label-secondary);
+      text-align: right;
+    }
+
+    /* TOC */
+    .toc {
+      list-style: none;
+      counter-reset: toc-counter;
+    }
+
+    .toc li {
+      counter-increment: toc-counter;
+    }
+
+    .toc li a {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+      padding: var(--space-sm) 0;
+      border-bottom: 0.33px solid var(--separator);
+      color: var(--label-primary);
+      text-decoration: none;
+      font: var(--text-callout);
+      transition: color var(--duration-standard) var(--ease-default);
+    }
+
+    .toc li:last-child a {
+      border-bottom: none;
+    }
+
+    .toc li a:hover {
+      color: var(--color-blue);
+    }
+
+    .toc li a::before {
+      content: counter(toc-counter);
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 9999px;
+      background: var(--bg-secondary);
+      color: var(--label-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font: var(--text-caption1);
+      font-weight: 600;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .toc li a::before {
+        background: var(--bg-tertiary);
+      }
+    }
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+    }
+
+    .checklist li {
+      font: var(--text-callout);
+      color: var(--label-secondary);
+      padding: var(--space-sm) 0;
+      padding-left: var(--space-xl);
+      position: relative;
+      border-bottom: 0.33px solid var(--separator);
+    }
+
+    .checklist li:last-child {
+      border-bottom: none;
+    }
+
+    .checklist li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: var(--space-sm);
+      width: 22px;
+      height: 22px;
+      border-radius: 9999px;
+      border: 2px solid var(--separator-opaque);
+    }
+
+    /* Ordered list in cards */
+    .card-body ol {
+      padding-left: var(--space-lg);
+      margin: var(--space-md) 0;
+    }
+
+    .card-body ol li {
+      font: var(--text-callout);
+      color: var(--label-secondary);
+      padding: var(--space-xs) 0;
+    }
+
+    .card-body ol li strong {
+      color: var(--label-primary);
+    }
+
+    .card-body ul {
+      list-style: none;
+      margin: var(--space-md) 0;
+    }
+
+    .card-body ul li {
+      font: var(--text-callout);
+      color: var(--label-secondary);
+      padding: var(--space-xs) 0;
+      padding-left: var(--space-lg);
+      position: relative;
+    }
+
+    .card-body ul li::before {
+      content: "\2022";
+      position: absolute;
+      left: 0;
+      color: var(--label-tertiary);
+    }
+
+    /* Sticky nav */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 0.33px solid var(--separator);
+      padding: var(--space-sm) var(--space-lg);
+      display: flex;
+      justify-content: center;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .sticky-nav {
+        background: rgba(0, 0, 0, 0.72);
+      }
+    }
+
+    .sticky-nav-inner {
+      max-width: var(--content-max-width);
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sticky-nav-title {
+      font: var(--text-headline);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sticky-nav a {
+      font: var(--text-subhead);
+      color: var(--color-blue);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: var(--space-3xl) var(--space-lg) var(--space-xl);
+    }
+
+    .footer p {
+      font: var(--text-footnote);
+      color: var(--label-tertiary);
+    }
+
+    .footer a {
+      color: var(--color-blue);
+      text-decoration: none;
+    }
+
+    /* Accessible focus */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--color-blue);
+      outline-offset: 2px;
+      border-radius: var(--space-xs);
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition-duration: 0.01ms !important; }
+    }
+
+    /* Print */
+    @media print {
+      .sticky-nav { display: none; }
+      .hero { padding: var(--space-lg); }
+      .code-block { border: 1px solid #ccc; }
+      body { background: #fff; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="sticky-nav" aria-label="Page navigation">
+    <div class="sticky-nav-inner">
+      <span class="sticky-nav-title">Claude Code: Beginner's Guide</span>
+      <a href="#start">Get Started</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-badge">Beginner Friendly</div>
+    <h1>Claude Code</h1>
+    <p class="hero-subtitle">The complete beginner's guide. From zero to productive in 30 minutes.</p>
+    <p class="hero-meta">By <a href="https://victordelrosal.com">Victor del Rosal</a> &middot; Last updated March 2026</p>
+  </header>
+
+  <main class="container">
+
+    <!-- What is it -->
+    <section class="section" id="what">
+      <p class="section-label">Overview</p>
+      <div class="card">
+        <div class="card-body">
+          <h2>What is Claude Code?</h2>
+          <p>Claude Code is an AI assistant that lives in your terminal (command line). Unlike chatbots that give you text snippets to copy and paste, Claude Code works directly with your files, folders, and projects. Think of it as a capable colleague sitting at your computer who can read your code, understand your project, and make changes for you.</p>
+
+          <h3>What makes it different from ChatGPT or regular Claude?</h3>
+
+          <div class="comparison">
+            <div class="comparison-col">
+              <h4>Regular AI Chat</h4>
+              <p>You describe code, it gives you text. You copy, paste, and hope it works. It has no idea what your project looks like.</p>
+            </div>
+            <div class="comparison-col">
+              <h4>Claude Code</h4>
+              <p>It reads your entire project. It edits your actual files. It runs your tests. It commits to Git. It sees the full picture.</p>
+            </div>
+          </div>
+
+          <div class="callout">
+            <p><strong>The mental shift:</strong> You are not asking for code snippets. You are directing an AI teammate who has access to your project. Tell it what you want done, not how to do it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Who is this for -->
+    <section class="section">
+      <p class="section-label">Before You Begin</p>
+      <div class="card">
+        <div class="card-body">
+          <h2>Who is this guide for?</h2>
+          <p>This guide is for people who:</p>
+          <ul>
+            <li>Have never used Claude Code before</li>
+            <li>May not be deeply technical (you do not need to be a programmer)</li>
+            <li>Are comfortable opening a terminal window</li>
+            <li>Want to use AI to be more productive with documents, code, data, or projects</li>
+          </ul>
+
+          <h3>What you will need</h3>
+          <ul>
+            <li>A Mac, Windows PC, or Linux machine</li>
+            <li>An internet connection</li>
+            <li>A Claude account (we will walk you through this next)</li>
+            <li>About 30 minutes for your first session</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="section" id="pricing">
+      <p class="section-label">Plans &amp; Pricing</p>
+      <div class="card">
+        <div class="card-body">
+          <h2>How much does it cost?</h2>
+          <p>Claude Code requires a paid plan. There is no permanent free tier, but there is a free trial.</p>
+
+          <div class="pricing-grid">
+            <div class="pricing-option recommended">
+              <div class="rec-badge">Start here</div>
+              <h4>Free Trial</h4>
+              <div class="price">$0 <span>for 30 days</span></div>
+              <p>Full Claude Pro access including Claude Code. Requires a payment method (not charged during trial). Cancel anytime.</p>
+            </div>
+
+            <div class="pricing-option">
+              <h4>Claude Pro</h4>
+              <div class="price">$20 <span>/ month</span></div>
+              <p>The standard plan for individuals. Full Claude Code access across terminal, VS Code, JetBrains, and the desktop app.</p>
+            </div>
+
+            <div class="pricing-option">
+              <h4>Claude Max 5x</h4>
+              <div class="price">$100 <span>/ month</span></div>
+              <p>5 times the usage limits of Pro. For daily heavy users who hit limits regularly.</p>
+            </div>
+
+            <div class="pricing-option">
+              <h4>API Pay-as-you-go</h4>
+              <div class="price">Variable</div>
+              <p>No subscription. Pay per token through the Anthropic Console. Best for developers who want fine-grained control over costs.</p>
+            </div>
+          </div>
+
+          <div class="callout-green callout">
+            <p><strong>Recommendation:</strong> Start with the 30-day free trial. It gives you full access to everything. If you find it valuable, $20/month for Claude Pro is the natural next step. You can cancel the trial at any time with no charge.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="section" id="start">
+      <p class="section-label">The Guide</p>
+      <div class="card">
+        <div class="card-body">
+          <h2>What we will cover</h2>
+          <ol class="toc">
+            <li><a href="#step1">Create your Claude account</a></li>
+            <li><a href="#step2">Install Claude Code</a></li>
+            <li><a href="#step3">Your first session</a></li>
+            <li><a href="#step4">The permission system</a></li>
+            <li><a href="#step5">Your first real task</a></li>
+            <li><a href="#step6">Essential commands</a></li>
+            <li><a href="#step7">Where Claude Code runs</a></li>
+            <li><a href="#step8">CLAUDE.md: teaching Claude about your project</a></li>
+            <li><a href="#step9">Tips from the trenches</a></li>
+            <li><a href="#step10">What to try next</a></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 1 -->
+    <section class="section" id="step1">
+      <div class="card">
+        <div class="row">
+          <div class="step-number">1</div>
+          <div class="row-content">
+            <h4>Create your Claude account</h4>
+            <p>If you do not already have one, go to <a href="https://claude.ai">claude.ai</a> and sign up. During signup, you can start the free trial. You will need a valid email and a payment method (it will not be charged during the 30-day trial period).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 2 -->
+    <section class="section" id="step2">
+      <div class="card">
+        <div class="row">
+          <div class="step-number">2</div>
+          <div class="row-content">
+            <h4>Install Claude Code</h4>
+            <p>Open your terminal and run the installer for your platform.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>macOS or Linux</h3>
+          <div class="code-block"><span class="prompt">$</span> <span class="command">curl -fsSL https://claude.ai/install.sh | bash</span></div>
+          <p>If you prefer Homebrew on Mac:</p>
+          <div class="code-block"><span class="prompt">$</span> <span class="command">brew install claude-code</span></div>
+
+          <h3>Windows (PowerShell)</h3>
+          <div class="code-block"><span class="prompt">PS></span> <span class="command">irm https://claude.ai/install.ps1 | iex</span></div>
+          <p>Windows requires <a href="https://git-scm.com/downloads/win">Git for Windows</a> to be installed first.</p>
+
+          <h3>Verify it worked</h3>
+          <div class="code-block"><span class="prompt">$</span> <span class="command">claude --version</span>
+<span class="output">claude-code v1.x.x</span></div>
+
+          <div class="callout">
+            <p><strong>Note:</strong> The installer is lightweight and handles updates automatically. You do not need Node.js, Python, or any other runtime pre-installed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 3 -->
+    <section class="section" id="step3">
+      <div class="card">
+        <div class="row">
+          <div class="step-number">3</div>
+          <div class="row-content">
+            <h4>Your first session</h4>
+            <p>Navigate to any project folder and type <code>claude</code>.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="code-block"><span class="prompt">$</span> <span class="command">cd ~/my-project</span>
+<span class="prompt">$</span> <span class="command">claude</span></div>
+
+          <p>On first launch, Claude will ask you to log in through your browser. After authentication, you are in an interactive session. You will see a prompt where you can type in natural language, just as you would to a colleague.</p>
+
+          <h3>Try asking it something</h3>
+          <div class="code-block"><span class="prompt">claude></span> <span class="command">What files are in this project? Give me a high-level overview.</span></div>
+
+          <p>Claude will read your project files and give you a structured summary. It understands file types, project structure, and can explain what each part does.</p>
+
+          <h3>Try something more specific</h3>
+          <div class="code-block"><span class="prompt">claude></span> <span class="command">Find all the places where we handle user authentication</span></div>
+
+          <p>Claude searches through your codebase and shows you exactly where things happen. No grep commands, no scrolling through files. Just ask.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 4 -->
+    <section class="section" id="step4">
+      <div class="card">
+        <div class="row">
+          <div class="step-number">4</div>
+          <div class="row-content">
+            <h4>The permission system</h4>
+            <p>Claude Code always asks before changing anything. You stay in control.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>When Claude wants to edit a file, create a file, or run a command, it will show you exactly what it plans to do and ask for permission. This is one of its best safety features.</p>
+
+          <div class="code-block"><span class="output">Claude wants to edit: src/config.js</span>
+
+<span class="output">- const timeout = 5000;</span>
+<span class="output">+ const timeout = 10000;</span>
+
+<span class="prompt">Allow? [y/n/always]</span></div>
+
+          <p>Your options:</p>
+          <ul>
+            <li><strong>y (yes):</strong> Allow this one change</li>
+            <li><strong>n (no):</strong> Reject it, Claude will try a different approach</li>
+            <li><strong>always:</strong> Allow this type of action for the rest of the session</li>
+          </ul>
+
+          <div class="callout-orange callout">
+            <p><strong>Golden rule:</strong> Read the diffs before pressing yes. Especially in your first few sessions, take a moment to understand what Claude is proposing. This is how you learn its strengths and build trust.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 5 -->
+    <section class="section" id="step5">
+      <div class="card">
+        <div class="row">
+          <div class="step-number">5</div>
+          <div class="row-content">
+            <h4>Your first real task</h4>
+            <p>Let us do something practical. Here are three beginner-friendly tasks you can try right now.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>Task A: Understand unfamiliar code</h3>
+          <div class="code-block"><span class="prompt">claude></span> <span class="command">Explain what the function processPayment in src/billing.js does, step by step, in plain language.</span></div>
+          <p>Perfect for when you inherit a codebase or join a new project.</p>
+
+          <h3>Task B: Fix a bug</h3>
+          <div class="code-block"><span class="prompt">claude></span> <span class="command">Users are reporting that the login form accepts empty passwords. Find where password validation happens and fix it.</span></div>
+          <p>Claude will search, identify the issue, propose a fix, and apply it (with your approval).</p>
+
+          <h3>Task C: Add a feature</h3>
+          <div class="code-block"><span class="prompt">claude></span> <span class="command">Add a "last modified" timestamp that shows at the bottom of each blog post page.</span></div>
+          <p>Claude will find the relevant template, add the timestamp, and explain what it did.</p>
+
+          <h3>Task D: Work with data</h3>
+          <div class="code-block"><span class="prompt">claude></span> <span class="command">Read the CSV file in data/students.csv and create a summary showing the average grade per course.</span></div>
+          <p>Claude can read data files, write analysis scripts, and generate results.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 6 -->
+    <section class="section" id="step6">
+      <div class="card">
+        <div class="row">
+          <div class="step-number">6</div>
+          <div class="row-content">
+            <h4>Essential commands</h4>
+            <p>You do not need to memorize these. But they are useful to know.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>Starting Claude Code</h3>
+          <div class="command-row">
+            <code>claude</code>
+            <span>Start interactive session in current folder</span>
+          </div>
+          <div class="command-row">
+            <code>claude "do X"</code>
+            <span>Run a single task, then exit</span>
+          </div>
+          <div class="command-row">
+            <code>claude -c</code>
+            <span>Continue your most recent session</span>
+          </div>
+
+          <h3>Inside a session</h3>
+          <div class="command-row">
+            <code>/help</code>
+            <span>See available commands</span>
+          </div>
+          <div class="command-row">
+            <code>/clear</code>
+            <span>Clear the current conversation</span>
+          </div>
+          <div class="command-row">
+            <code>/compact</code>
+            <span>Summarize the conversation to save context</span>
+          </div>
+          <div class="command-row">
+            <code>Esc</code>
+            <span>Cancel a running operation</span>
+          </div>
+          <div class="command-row">
+            <code>Ctrl+C</code>
+            <span>Exit Claude Code</span>
+          </div>
+
+          <h3>Working with Git</h3>
+          <div class="command-row">
+            <code>claude commit</code>
+            <span>Stage and commit changes with an AI-written message</span>
+          </div>
+
+          <div class="callout">
+            <p><strong>Pro tip:</strong> You do not need slash commands for most things. Just type what you want in natural language. "Commit my changes" or "Show me what changed" work perfectly well.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 7 -->
+    <section class="section" id="step7">
+      <div class="card">
+        <div class="row">
+          <div class="step-number">7</div>
+          <div class="row-content">
+            <h4>Where Claude Code runs</h4>
+            <p>Claude Code is available in multiple environments. Choose what suits your workflow.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="command-row">
+            <strong>Terminal (CLI)</strong>
+            <span>The original experience. Just type <code>claude</code>.</span>
+          </div>
+          <div class="command-row">
+            <strong>VS Code</strong>
+            <span>Install the Claude Code extension from the marketplace.</span>
+          </div>
+          <div class="command-row">
+            <strong>JetBrains IDEs</strong>
+            <span>IntelliJ, PyCharm, WebStorm, etc. Install via plugins.</span>
+          </div>
+          <div class="command-row">
+            <strong>Desktop App</strong>
+            <span>Standalone Mac and Windows application.</span>
+          </div>
+          <div class="command-row">
+            <strong>Web</strong>
+            <span><a href="https://claude.ai/code">claude.ai/code</a> in your browser.</span>
+          </div>
+
+          <p>All environments share the same capabilities. Pick the one you are most comfortable with.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 8 -->
+    <section class="section" id="step8">
+      <div class="card">
+        <div class="row">
+          <div class="step-number">8</div>
+          <div class="row-content">
+            <h4>CLAUDE.md: teaching Claude about your project</h4>
+            <p>This is your project's instruction manual for Claude. Optional but powerful.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p>Create a file called <code>CLAUDE.md</code> in the root of your project. Claude reads it at the start of every session. It is where you tell Claude things like your coding style, project conventions, or things to avoid.</p>
+
+          <h3>Example CLAUDE.md</h3>
+          <div class="code-block"><span class="comment"># Project: Student Portal</span>
+
+<span class="comment">## Tech Stack</span>
+This is a Python Flask app with PostgreSQL.
+We use pytest for testing.
+
+<span class="comment">## Conventions</span>
+- Use snake_case for all Python functions
+- Every new endpoint needs a test
+- Never modify the migration files directly
+
+<span class="comment">## Important</span>
+- The database credentials are in .env (never commit this file)
+- Run tests with: pytest tests/ -v</div>
+
+          <p>Think of it as onboarding documentation, not for a new hire, but for your AI teammate. The more context you give, the better Claude performs.</p>
+
+          <div class="callout">
+            <p><strong>You can also place a CLAUDE.md in your home directory</strong> (~/.claude/CLAUDE.md) for preferences that apply to all your projects, such as your preferred language, formatting style, or general rules.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 9 -->
+    <section class="section" id="step9">
+      <div class="card">
+        <div class="row">
+          <div class="step-number">9</div>
+          <div class="row-content">
+            <h4>Tips from the trenches</h4>
+            <p>Practical advice from daily Claude Code use.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3>Be specific about what you want</h3>
+          <p>Instead of "fix the login", try "the login form on /login should show an error message when the email field is empty, instead of silently submitting". The more precise your request, the better the result.</p>
+
+          <h3>Start small</h3>
+          <p>Do not ask Claude to rewrite your entire application in the first session. Start with small, contained tasks: fix a bug, add a feature, refactor one function. Build confidence and understanding gradually.</p>
+
+          <h3>Review the diffs</h3>
+          <p>Always read what Claude proposes before accepting. This is not just about safety: it is the fastest way to learn. You will start recognising patterns, understanding your codebase better, and developing intuition for what good AI-assisted work looks like.</p>
+
+          <h3>Use continue mode</h3>
+          <p>If you close your terminal, <code>claude -c</code> picks up where you left off. Your conversation context is preserved. No need to re-explain what you were working on.</p>
+
+          <h3>Work in a project folder</h3>
+          <p>Always <code>cd</code> into your project directory before running <code>claude</code>. Claude uses your current folder as its workspace. If you start Claude from your home directory, it has access to everything (which is rarely what you want).</p>
+
+          <h3>Let Claude run commands</h3>
+          <p>Claude can run shell commands (with your permission). Let it run tests, install packages, check git status, or build your project. This is where the real power is: it can see errors, fix them, and verify the fix all in one flow.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 10 -->
+    <section class="section" id="step10">
+      <div class="card">
+        <div class="row">
+          <div class="step-number">10</div>
+          <div class="row-content">
+            <h4>What to try next</h4>
+            <p>Once you are comfortable with the basics, explore these areas.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li><strong>Git workflows:</strong> Ask Claude to review your changes, write commit messages, or create pull requests</li>
+            <li><strong>Testing:</strong> "Write tests for the user registration module" is a perfectly valid request</li>
+            <li><strong>Refactoring:</strong> "This function is too long. Break it into smaller, well-named functions"</li>
+            <li><strong>Documentation:</strong> "Generate API documentation for the endpoints in routes/"</li>
+            <li><strong>Code review:</strong> "Review this file for potential bugs or security issues"</li>
+            <li><strong>Data analysis:</strong> "Read this Excel file and create a chart showing monthly trends"</li>
+            <li><strong>Learning:</strong> "Explain how async/await works in this codebase with real examples from our code"</li>
+          </ul>
+
+          <h3>Official resources</h3>
+          <ul>
+            <li><a href="https://code.claude.com/docs/en/quickstart">Official Quickstart Guide</a></li>
+            <li><a href="https://code.claude.com/docs">Full Documentation</a></li>
+            <li><a href="https://github.com/anthropics/claude-code">Claude Code on GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Checklist -->
+    <section class="section" id="checklist">
+      <p class="section-label">Quick Reference</p>
+      <div class="card">
+        <div class="card-body">
+          <h2>Your first-day checklist</h2>
+          <ul class="checklist">
+            <li>Create a Claude account at claude.ai (start the free trial)</li>
+            <li>Install Claude Code in your terminal</li>
+            <li>Navigate to a project folder and type <code>claude</code></li>
+            <li>Ask Claude to explain your project structure</li>
+            <li>Ask Claude to make one small change (review the diff!)</li>
+            <li>Try <code>claude -c</code> to continue a previous session</li>
+            <li>Create a CLAUDE.md file with your project's conventions</li>
+            <li>Share this guide with a colleague</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>Written by <a href="https://victordelrosal.com">Victor del Rosal</a></p>
+    <p>Lecturer, NCI Dublin. Builder, <a href="https://fiveinnolabs.com">Five Innovation Labs</a>.</p>
+    <p style="margin-top: var(--space-md);">This guide is open source. <a href="https://github.com/victordelrosal/claude-code-beginners-guide">Contribute on GitHub</a>.</p>
+  </footer>
+
+</body>
+</html>
