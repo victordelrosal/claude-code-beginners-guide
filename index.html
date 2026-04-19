@@ -1147,6 +1147,10 @@
           <div class="callout-orange callout">
             <p><strong>Golden rule:</strong> Read the diffs before pressing yes. Especially in your first few sessions, take a moment to understand what Claude is proposing. This is how you learn its strengths and build trust.</p>
           </div>
+
+          <div class="callout-orange callout">
+            <p><strong>Watch for agreement bias:</strong> Claude is trained to be helpful, which sometimes tips into agreeing with you even when you are wrong. If you say "I think this function is broken", Claude may dive in to fix something that was fine. Push back on its suggestions. Ask "are you sure?" or "what would the opposite approach look like?" You are the decider.</p>
+          </div>
         </div>
       </details>
     </section>
@@ -1222,6 +1226,10 @@
           <div class="command-row">
             <code>/compact</code>
             <span>Summarize the conversation to save context</span>
+          </div>
+
+          <div class="callout">
+            <p><strong>Why <code>/clear</code> and <code>/compact</code> exist:</strong> Claude reads and writes in chunks called <em>tokens</em> (roughly one token per word). Every session has a finite window. As your conversation grows, that window fills up and Claude starts to feel forgetful or sluggish. <code>/compact</code> summarises the chat to free up room. <code>/clear</code> wipes the slate. If responses start feeling off after a long session, that is the cue.</p>
           </div>
           <div class="command-row">
             <code>Esc</code>
@@ -1340,6 +1348,15 @@ We use pytest for testing.
           <h3>Be specific about what you want</h3>
           <p>Instead of "fix the login", try "the login form on /login should show an error message when the email field is empty, instead of silently submitting". The more precise your request, the better the result.</p>
 
+          <h3>Give examples, not just instructions</h3>
+          <p>Claude learns faster from examples than from rules. If you want code in a particular style, paste a sample file and say "match this style". If you want a commit message in your usual voice, paste your last three commits. One concrete example beats a paragraph of guidelines.</p>
+
+          <h3>Say what you want, not what you don't want</h3>
+          <p>"Don't make it too clever" is weaker than "write it like you would explain it to a junior developer". Tell Claude what to do, not what to avoid. If a particular bad habit keeps appearing, then call it out explicitly: "stop adding try/except around every line".</p>
+
+          <h3>Start short, then iterate</h3>
+          <p>Do not write a 500-word prompt on your first try. Start with two sentences, see what comes back, then refine: "shorter", "now add error handling", "rewrite that one function". Building up is easier than getting it perfect in one shot.</p>
+
           <h3>Start small</h3>
           <p>Do not ask Claude to rewrite your entire application in the first session. Start with small, contained tasks: fix a bug, add a feature, refactor one function. Build confidence and understanding gradually.</p>
 
@@ -1354,6 +1371,12 @@ We use pytest for testing.
 
           <h3>Let Claude run commands</h3>
           <p>Claude can run shell commands (with your permission). Let it run tests, install packages, check git status, or build your project. This is where the real power is: it can see errors, fix them, and verify the fix all in one flow.</p>
+
+          <h3>Keep a "prompts that worked" file</h3>
+          <p>Every time a prompt gives you a great result, paste it into a notes file. In two weeks you will have a personal library worth more than any prompt pack you could buy. Once a prompt earns its keep, promote it to a slash command or a CLAUDE.md instruction.</p>
+
+          <h3>Verify anything that matters</h3>
+          <p>Claude sounds confident even when it is wrong, especially with facts, dates, package versions, and library APIs. If a detail will end up in production, in a client email, or in a contract, check it against the source. Treat Claude as a fast first draft, never as the last word.</p>
         </div>
       </details>
     </section>
